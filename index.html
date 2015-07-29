@@ -1,0 +1,48 @@
+<html lang="en" ng-app="carsApp">
+
+<head>
+	<link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+	<link href="main.css" rel="stylesheet">
+		
+
+	<script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/angular-route/angular-route.js"></script>
+	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+	<script src="bower_components/lodash/dist/lodash.js"></script>
+	<script src="bower_components/bluebird/js/browser/bluebird.js"></script>
+	<script src="bower_components/angular-google-maps/dist/angular-google-maps.js"></script>
+	<script src="bower_components/modernizr/modernizr.js"></script>
+	
+	<script src="js/main.js"></script>
+	<script src="js/controllers.js"></script>
+	<script src="js/directives.js"></script>
+	<script src="js/services.js"></script>
+	<script src="js/filters.js"></script>
+	<script src="js/modalControllers.js"></script>
+</head>
+
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top navbar-inverse" id="main-navbar" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#/">Cars Vending Ltd.</a>
+			</div>
+			
+			<div class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li class="active" ng-show="active.list"><a href="#">List off all cars</a></li>
+					<li ng-hide="active.list"><a href="#">List off all cars</a></li>
+					<li class="active" ng-show="active.add"><a href="#/new">Add a new car</a></li>
+					<li><a href="#/new" ng-hide="active.add">Add a new car</a></li>
+				</ul>
+			</div>
+		</div>
+		
+	</nav>
+	
+
+	<div ng-view id="content">
+	</div>
+</body>
+
+</html>

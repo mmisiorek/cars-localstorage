@@ -1,0 +1,87 @@
+body { 
+	padding-top: 70px;
+	background-color: #e7e7e7;
+	overflow: scroll;
+}
+		
+#main-navbar {
+	padding-left: 9%;
+}
+		
+#content {
+	margin-left: auto; 
+	margin-right: auto; 
+	width: 80%;
+}
+		
+h1 { 
+	font-size: 24px;
+}
+		
+h2 { 
+	font-size: 16px;
+	font-weight: bolder;
+	margin-top: 0px !important;
+	margin-bottom: 20px !important;
+}
+		
+#list-table td { 
+	text-align: center;
+}
+		
+.page-header { 
+	margin-top: 10px !important;
+}
+		
+label.font-normal-weight { 
+	font-weight: normal !important;
+}
+		
+ul.dropdown-menu-centered li { 
+	text-align: center; 
+}
+
+ul.dropdown-menu-small { 
+	width: 20px;
+}
+
+div.error-msg { 
+	margin: 10 20; 
+}
+		
+table#list-table tr td { 
+	vertical-align: middle; 
+}
+		
+div.panel-60 { 
+	width: 60%; 
+	margin-left: auto; 
+	margin-right: auto; 
+}
+		
+table#list-table button.action { 
+	display: block;
+	width: 100%; 
+}
+
+div.details-box {
+	margin: 5px 10px 40px 10px;
+}
+
+div.details-box img {
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+
+.angular-google-map-container {
+	height: 400px;
+}
+
+div.available-row {
+	margin: 10px 25px 20px 25px;
+}
+
+.modal-open {
+  overflow: scroll;
+}

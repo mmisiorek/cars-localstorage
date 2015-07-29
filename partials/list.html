@@ -1,0 +1,85 @@
+
+
+<div class="panel panel-default">
+	<div class="panel-body">
+	
+		<div class="page-header">
+			<h1>List of all cars</h1>
+		</div>
+		
+		<table class="table" id="list-table" ng-show="cars.length">
+			<thead>
+				<tr>
+					<td>
+						<button class="btn btn-normal" id="sort-id-btn" ng-click="sort('id', 'sort-id-btn')">
+							# <span class="sort-dir">&and;</span>
+						</button>
+					</td>
+					<td>
+						<button class="btn btn-normal" id="sort-brand-btn" ng-click="sort('brand', 'sort-brand-btn')">
+							Brand <span class="sort-dir">&nbsp;</span>
+						</button>
+					</td>
+					<td>
+						<button class="btn btn-normal" id="sort-model-btn" ng-click="sort('model', 'sort-model-btn')">
+							Model <span class="sort-dir">&nbsp;</span>
+						</button>
+					</td>
+					<td>
+						<button class="btn btn-normal" id="sort-mdate-btn" ng-click="sort('date', 'sort-mdate-btn')">
+							Manifacture date <span class="sort-dir">&nbsp;</span>
+						</button>
+					</td>
+					<td>
+						<button class="btn btn-normal" id="sort-available-btn" ng-click="sort('available', 'sort-available-btn')">
+							Availability <span class="sort-dir">&nbsp;</span>
+						</button>
+					</td>
+					<td>
+						<button class="btn btn-normal" id="sort-regnum-btn" ng-click="sort('regNumber', 'sort-regnum-btn')">
+							Registration Number <span class="sort-dir">&nbsp;</span>
+						</button>
+					</td>
+					<td>
+						<button class="btn btn-normal">
+							Location
+						</button>
+					</td>
+					<td></td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="car in cars|orderBy:predicate:reverse">
+					<td>{{ car.id+1 }}</td>
+					<td>{{ car.brand }}</td>
+					<td>{{ car.model }}</td>
+					<td>{{ car.date | date:'yyyy-MM-dd' }}</td>
+					<td>
+						<span class="glyphicon glyphicon-ok" ng-show="car.available"></span>
+						<span class="glyphicon glyphicon-remove" ng-hide="car.available"></span>
+					</td>
+					<td>{{ car.regNumber }}</td>
+					<td> <a ng-href="{{ car.location | locationLink }}" target="_blank">{{ car.location.latitude | location }} <br>  {{ car.location.longitude | location }} </a> </td>
+					<td> 
+						<button type="button" class="btn btn-primary action" ng-click="goToDetails(car.id)"><span class="glyphicon glyphicon-search"></span> View</button> <br>
+						<button type="button" class="btn btn-primary action" ng-click="goToEdit(car.id);"><span class="glyphicon glyphicon-edit"></span> Edit</button> <br>
+						<button type="button" class="btn btn-danger action" ng-click="removeCar(car.id);"><span class="glyphicon glyphicon-trash"></span> Remove</button> 
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	
+		<div class="panel panel-primary panel-60" ng-hide="cars.length">
+			<div class="panel-heading">
+				<div class="panel-title">
+					<span class="glyphicon glyphicon-question-sign"></span>&nbsp; &nbsp;Where is my list?
+				</div>
+			</div>
+			
+			<div class="panel-body">
+				There are no cars registered at the moment. Use "<a href='#/new'>Add a car</a>" option to fill the database. 
+			</div>
+		</div>
+	</div>
+</div>
+

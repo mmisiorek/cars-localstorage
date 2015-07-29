@@ -1,0 +1,200 @@
+<div class="panel panel-default">
+	<div class="panel-body">
+		<div class="page-header">
+			<h1>{{ pageTitle }}</h1>
+		</div>
+		
+		<form role="form" name="carForm">
+			
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="panel-header panel-header-inline">
+						<h2>General</h2>
+					</div>
+					
+					<div class="details-box" ng-show="car.photo64">
+						<img ng-src="{{ car.photo64 }}" />
+					</div>
+					
+					<div class="form-group">
+						<label for="car-photo">Photo of the car</label>
+						<input type="file" class="form-control" id="car-photo" name="photo" 
+									fileread="car.photo64" file-field-non-empty accept="image/x-png, image/gif, image/jpeg"/>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group" ng-class="{'has-error': carForm.brand.$invalid && carForm.brand.$touched }">
+								<label for='car-brand'>Brand of the car</label>
+								<select class="form-control" ng-model="car.brand" name="brand" required>
+									<option></option>
+									<option ng-repeat="brand in brands">{{ brand }}</option>
+								</select>
+								<div class="error-msg text-danger" ng-show="carForm.brand.$invalid && carForm.brand.$touched"> 
+									This field cannot be empty!
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group" ng-class="{'has-error': carForm.model.$invalid && carForm.model.$touched }">
+								<label for='model'>Model of the car</label>
+								<input type="text" class="form-control" id="car-model" name="model" ng-model="car.model" required />
+								<div class="error-msg text-danger" ng-show="carForm.model.$invalid && carForm.model.$touched"> 
+									This field cannot be empty!
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group" ng-class="{'has-error': carForm.date.$invalid && carForm.date.$touched }">
+								<label for='car-date'>Manufactured Date</label>
+								
+								<!-- input date -->
+								<input type="date" class="form-control" id="car-date" name="date" ng-model="car.date" 
+										value="" ng-show="modernizr.inputdate" value="2009-01-03" required/>
+										
+								<input type="text" class="form-control" id="car-date-2" name="date" ng-model="car.date"
+										value="" ng-hide="modernizr.inputdate" datepicker-popup="yyyy-MM-dd" is-open="datepickerOpened"
+										ng-click="datepickerOpen($event)" required date-string/>
+										
+								<!-- END input date -->
+								<div class="error-msg text-danger" ng-show="carForm.date.$invalid && carForm.date.$touched"> 
+									This field cannot be empty!
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group" ng-class="{'has-error': carForm.regnum.$invalid && carForm.regnum.$touched }">
+								<label for='car-regnumber'>Registration Number</label>
+								<input type="text" class="form-control" id="car-regnumber" name="regnum" ng-model="car.regNumber" required reg-number />
+								<div class="error-msg text-danger" ng-show="carForm.regnum.$invalid && carForm.regnum.$touched"> 
+									<span ng-show="carForm.regnum.$error.required">This field cannot be empty!</span>
+									<span ng-show="carForm.regnum.$error.regNumber">This field must be a valid registration number!</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="panel-header panel-header-inline">
+						<h2>Availability</h2>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="font-normal-weight">
+									<input type="radio" name="availability" ng-model="car.available" required value="1"/> Available
+								</label>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="font-normal-weight">
+									<input type="radio" name="availability" ng-model="car.available" required value="0"/> Unavailable
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="panel-header panel-header-inline">
+						<h2>Location</h2>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group" ng-class="{'has-error': locationFieldHasError(carForm, 'latitude') }">
+								<label for='car-latitude-num'>Latitude</label>
+								
+								<div class="row">
+									<div class="col-md-9">
+										<input type="number" step="0.01" class="form-control" id="car-latitude-num" name="latitude"
+												 ng-model="car.location.latitude.val" required min="0" max="90"/>
+									</div>
+									<div class="col-md-3">
+										<select class="form-control" name="latitudeDir" ng-model="car.location.latitude.dir" required>
+											<option></option>
+											<option>N</option>
+											<option>S</option>
+										</select>
+									</div>
+								</div>
+								<div class="error-msg text-danger" ng-show="carForm.latitude.$invalid && carForm.latitude.$touched"> 
+									<span ng-show="carForm.latitude.$error.required">This field cannot be empty!</span>
+									<span ng-show="carForm.latitude.$error.number">This field must be a number!</span>
+									<span ng-show="(carForm.latitude.$error.min || carForm.latitude.$error.max) && !carForm.latitude.$error.required">The value of latitude must be between 0 and 90!</span>
+								</div>
+								<div class="error-msg text-danger" ng-show="carForm.latitudeDir.$invalid && carForm.latitudeDir.$touched"> 
+									Direction field cannot be empty!
+								</div>
+							</div>
+							
+							{{ form.latitude.$error | json }} 
+						</div>
+						<div class="col-md-6">
+							<div class="form-group" ng-class="{'has-error': locationFieldHasError(carForm, 'longitude') }">
+								<label for='car-longitude-num'>Longitude</label>
+								<div class="row">
+									<div class="col-md-9">
+										<input type="number" step="0.01" class="form-control" id="car-longitude-num" 
+												name="longitude" ng-model="car.location.longitude.val" required min="0" max="180"/>
+									</div>
+									<div class="col-md-3">
+										<select class="form-control" name="longitudeDir" ng-model="car.location.longitude.dir" required>
+											<option></option>
+											<option>E</option>
+											<option>W</option>
+										</select>
+									</div>
+								</div>
+								<div class="error-msg text-danger" ng-show="carForm.longitude.$invalid && carForm.longitude.$touched"> 
+									<span ng-show="carForm.longitude.$error.required">First field cannot be empty!</span> 
+									<span ng-show="carForm.longitude.$error.number">First field must be a number!</span>
+									<span ng-show="(carForm.longitude.$error.min || carForm.longitude.$error.max) && !carForm.longitude.$error.required">The value of longitude must be between 0 and 180!</span>
+								</div>
+								<div class="error-msg text-danger" ng-show="carForm.longitudeDir.$invalid && carForm.longitudeDir.$touched">
+									Direction field cannot be empty!
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row" ng-show="carForm.$valid">
+				<div class="col-md-2">
+					<button type="submit" class="btn btn-success" ng-click="submitForm(carForm);">
+						<span class="glyphicon glyphicon-floppy-disk"></span> Save
+					</button>
+				</div>
+				<div class="col-md-2" ng-hide="carForm.$valid">
+					<button type="submit" class="btn btn-success" disabled>
+						<span class="glyphicon glyphicon-floppy-disk"></span> Save
+					</button>
+					<span class="text-danger">Not all fields are correct or filled!</span>
+				</div>
+				<div class="col-md-10">
+				</div>
+			</div>
+			
+			<div class="row" ng-hide="carForm.$valid">
+				<div class="col-md-2">
+					<button type="submit" class="btn btn-success" disabled>
+						<span class="glyphicon glyphicon-floppy-disk"></span> Save
+					</button>
+				</div>
+				<div class="col-md-10">
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
